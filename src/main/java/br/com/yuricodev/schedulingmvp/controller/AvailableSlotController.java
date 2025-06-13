@@ -42,5 +42,11 @@ public class AvailableSlotController {
         return ResponseEntity.status(HttpStatus.CREATED).body(slot);
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteSlot(@PathVariable Long id){
+        availableSlotService.deleteSlot(id);
+        return ResponseEntity.noContent().build();
+    }
+
 
 }
