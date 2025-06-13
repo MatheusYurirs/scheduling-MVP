@@ -34,7 +34,7 @@ public class AvailableSlotService {
         return availableSlotRepository.save(slot);
     }
 
-    public void cancelSlot(Long id){
+    public void deleteSlot(Long id){
         availableSlotRepository.deleteById(id);
     }
 
