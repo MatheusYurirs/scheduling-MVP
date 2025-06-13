@@ -1,12 +1,10 @@
 package br.com.yuricodev.schedulingmvp.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
 
+@Entity
 public class AvailableSlot {
 
     @Id
@@ -17,15 +15,15 @@ public class AvailableSlot {
     private LocalDateTime dateTime;
 
     @Column(nullable = false)
-    private boolean is_taken;
+    private boolean isTaken;
 
     public AvailableSlot() {
     }
 
-    public AvailableSlot(Long id, LocalDateTime dateTime, boolean is_taken) {
+    public AvailableSlot(Long id, LocalDateTime dateTime, boolean isTaken) {
         this.id = id;
         this.dateTime = dateTime;
-        this.is_taken = is_taken;
+        this.isTaken = isTaken;
     }
 
     public Long getId() {
@@ -44,11 +42,11 @@ public class AvailableSlot {
         this.dateTime = dateTime;
     }
 
-    public boolean isIs_taken() {
-        return is_taken;
+    public boolean isTaken() {
+        return isTaken;
     }
 
-    public void setIs_taken(boolean is_taken) {
-        this.is_taken = is_taken;
+    public void setTaken(boolean taken) {
+        this.isTaken = taken;
     }
 }
