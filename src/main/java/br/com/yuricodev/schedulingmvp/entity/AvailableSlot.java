@@ -17,13 +17,18 @@ public class AvailableSlot {
     @Column(nullable = false)
     private boolean isTaken;
 
+    @ManyToOne
+    @JoinColumn(name = "users_id", nullable = false)
+    private User user;
+
     public AvailableSlot() {
     }
 
-    public AvailableSlot(Long id, LocalDateTime dateTime, boolean isTaken) {
+    public AvailableSlot(Long id, LocalDateTime dateTime, boolean isTaken, User user) {
         this.id = id;
         this.dateTime = dateTime;
         this.isTaken = isTaken;
+        this.user = user;
     }
 
     public Long getId() {
@@ -48,5 +53,13 @@ public class AvailableSlot {
 
     public void setTaken(boolean taken) {
         this.isTaken = taken;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
