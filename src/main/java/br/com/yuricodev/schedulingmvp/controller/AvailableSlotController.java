@@ -38,7 +38,7 @@ public class AvailableSlotController {
 
     @PostMapping
     public ResponseEntity<AvailableSlot> createSlot(@RequestBody AvailableSlot availableSlot){
-        AvailableSlot slot = availableSlotService.createSlot(availableSlot.getDateTime());
+        AvailableSlot slot = availableSlotService.createSlot(availableSlot.getDateTime(), availableSlot.getUser().getId());
         return ResponseEntity.status(HttpStatus.CREATED).body(slot);
     }
 

@@ -1,7 +1,9 @@
 package br.com.yuricodev.schedulingmvp.service;
 
 import br.com.yuricodev.schedulingmvp.entity.AvailableSlot;
+import br.com.yuricodev.schedulingmvp.entity.User;
 import br.com.yuricodev.schedulingmvp.repository.AvailableSlotRepository;
+import br.com.yuricodev.schedulingmvp.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -12,9 +14,11 @@ import java.util.List;
 public class AvailableSlotService {
 
     private final AvailableSlotRepository availableSlotRepository;
+    private final UserRepository userRepository;
 
-    public AvailableSlotService(AvailableSlotRepository availableSlotRepository) {
+    public AvailableSlotService(AvailableSlotRepository availableSlotRepository, UserRepository userRepository) {
         this.availableSlotRepository = availableSlotRepository;
+        this.userRepository = userRepository;
     }
 
     public List<AvailableSlot> getAvailableSlots(LocalDate date){
@@ -23,14 +27,19 @@ public class AvailableSlotService {
         return availableSlotRepository.findAllByIsTakenFalseAndDateTimeBetween(start, end);
     }
 
-    public AvailableSlot createSlot(LocalDateTime dateTime){
+    public AvailableSlot createSlot(LocalDateTime dateTime, Long userId) {
         if (availableSlotRepository.findByDateTime(dateTime).isPresent()) {
             throw new RuntimeException("Esse horário já existe.");
         }
 
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado."));
+
         AvailableSlot slot = new AvailableSlot();
         slot.setDateTime(dateTime);
         slot.setTaken(false);
+        slot.setUser(user);
+
         return availableSlotRepository.save(slot);
     }
 
